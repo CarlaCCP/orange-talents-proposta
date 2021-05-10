@@ -17,6 +17,8 @@ public class NovaPropostaResponse {
 	private String endereco;
 
 	private BigDecimal salario;
+	
+	private StatusProposta status = StatusProposta.ANALISE;
 
 	public NovaPropostaResponse(NovaPropostaModel proposta) {
 	
@@ -25,6 +27,7 @@ public class NovaPropostaResponse {
 		this.nome = proposta.getNome();
 		this.endereco = proposta.getEndereco();
 		this.salario = proposta.getSalario();
+		this.status = proposta.getStatus();
 	}
 
 	public NovaPropostaResponse() {
@@ -51,6 +54,15 @@ public class NovaPropostaResponse {
 		return salario;
 	}
 	
+	
+	public StatusProposta getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusProposta status) {
+		this.status = status;
+	}
+
 	public static List<NovaPropostaResponse> converter (List<NovaPropostaModel> proposta){
 		
 		return proposta.stream().map(NovaPropostaResponse::new).collect(Collectors.toList());

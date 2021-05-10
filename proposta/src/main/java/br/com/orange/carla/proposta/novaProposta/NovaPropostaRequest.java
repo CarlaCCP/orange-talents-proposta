@@ -1,7 +1,9 @@
 package br.com.orange.carla.proposta.novaProposta;
 
-import java.math.BigDecimal; 
+import java.math.BigDecimal;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -26,25 +28,37 @@ public class NovaPropostaRequest {
 	private String endereco;
 	@NotNull @Positive
 	private BigDecimal salario;
+	@Enumerated(EnumType.STRING)
+	private StatusProposta status = StatusProposta.ANALISE;
 	
 	
 	public NovaPropostaRequest(@NotEmpty @Documento String documento, @Email @NotEmpty String email,
-			@NotEmpty String nome, @NotEmpty String endereco, @NotNull @Positive BigDecimal salario) {
+			@NotEmpty String nome, @NotEmpty String endereco, @NotNull @Positive BigDecimal salario, StatusProposta status) {
 		super();
 		this.documento = documento;
 		this.email = email;
 		this.nome = nome;
 		this.endereco = endereco;
 		this.salario = salario;
+		this.status = status;
 	}
 	
 	public NovaPropostaModel converter () {
-		return new NovaPropostaModel(documento, email, nome, endereco, salario);
+		return new NovaPropostaModel(documento, email, nome, endereco, salario, status);
 	}
 
 	public String getDocumento() {
 		return documento;
 	}
+
+	public StatusProposta getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusProposta status) {
+		this.status = status;
+	}
+	
 	
 	
 }

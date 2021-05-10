@@ -3,6 +3,8 @@ package br.com.orange.carla.proposta.novaProposta;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,13 +34,14 @@ public class NovaPropostaModel {
 	private String endereco;
 	@NotNull @Positive
 	private BigDecimal salario;
-	
+	@Enumerated(EnumType.STRING)
+	private StatusProposta status = StatusProposta.ANALISE;
 	public NovaPropostaModel() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public NovaPropostaModel( @NotEmpty String documento, @Email @NotEmpty String email,
-			@NotEmpty String nome, @NotEmpty String endereco, @NotNull @Positive BigDecimal salario) {
+			@NotEmpty String nome, @NotEmpty String endereco, @NotNull @Positive BigDecimal salario,  StatusProposta status ) {
 		super();
 		
 		this.documento = documento;
@@ -46,6 +49,7 @@ public class NovaPropostaModel {
 		this.nome = nome;
 		this.endereco = endereco;
 		this.salario = salario;
+		this.status = status;
 	}
 
 	public Long getIdProposta() {
@@ -70,6 +74,16 @@ public class NovaPropostaModel {
 
 	public BigDecimal getSalario() {
 		return salario;
+	}
+	
+	
+
+	public StatusProposta getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusProposta status) {
+		this.status = status;
 	}
 	
 	

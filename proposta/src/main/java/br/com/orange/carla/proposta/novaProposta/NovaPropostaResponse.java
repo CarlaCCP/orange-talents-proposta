@@ -52,6 +52,7 @@ public class NovaPropostaResponse {
 	}
 	
 	public static List<NovaPropostaResponse> converter (List<NovaPropostaModel> proposta){
+		
 		return proposta.stream().map(NovaPropostaResponse::new).collect(Collectors.toList());
 	}
 	

@@ -8,12 +8,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import br.com.orange.carla.proposta.compartilhado.Documento;
+import br.com.orange.carla.proposta.compartilhado.UniqueValue;
 
 public class NovaPropostaRequest {
 
 	
 	@NotEmpty
 	@Documento
+	//@UniqueValue(domainClass = NovaPropostaModel.class, fieldName = "documento")
 	private String documento; //cpf e cnpj
 	@Email
 	@NotEmpty
@@ -38,6 +40,10 @@ public class NovaPropostaRequest {
 	
 	public NovaPropostaModel converter () {
 		return new NovaPropostaModel(documento, email, nome, endereco, salario);
+	}
+
+	public String getDocumento() {
+		return documento;
 	}
 	
 	

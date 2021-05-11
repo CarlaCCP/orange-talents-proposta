@@ -33,7 +33,6 @@ public class NovaPropostaController {
 			UriComponentsBuilder uriBuilder) {
 		NovaPropostaModel novaProposta = request.converter();
 		DetalhesAnaliseRequest retornaAnalise = new DetalhesAnaliseRequest(novaProposta);
-		DetalhesAnaliseResponse respostaAnalise = new DetalhesAnaliseResponse();
 		if (repository.findByDocumento(novaProposta.getDocumento()).isPresent()) {
 			throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Documento já cadastrado");
 		} else {

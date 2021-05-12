@@ -1,19 +1,21 @@
-package br.com.orange.carla.proposta.novaProposta;
+package br.com.orange.carla.proposta.feign;
 
-public class DetalhesAnaliseRequest {
+import br.com.orange.carla.proposta.novaProposta.NovaPropostaModel;
+
+public class CartaoRequestFeign {
 
 	private String documento;
 	private String nome; 
-	private Long idProposta;
+	private String idProposta;
 	
-	public DetalhesAnaliseRequest (NovaPropostaModel proposta) {
+	public CartaoRequestFeign (NovaPropostaModel proposta) {
 		this.documento = proposta.getDocumento();
 		this.nome = proposta.getNome();
 		this.idProposta = proposta.getIdProposta();
 	}
 	
 
-	public DetalhesAnaliseRequest () {
+	public CartaoRequestFeign () {
 	}
 
 	public String getDocumento() {
@@ -25,10 +27,8 @@ public class DetalhesAnaliseRequest {
 		return nome;
 	}
 
-	public Long getIdProposta() {
+	public String getIdProposta() {
 		return idProposta;
 	}
-	
-	
 	
 }

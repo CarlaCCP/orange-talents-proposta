@@ -8,11 +8,14 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+
+import br.com.orange.carla.proposta.Cartao.Cartao;
 
 
 
@@ -22,7 +25,9 @@ public class NovaPropostaModel {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idProposta;
+	private Long id;
+	
+	private String idProposta;
 	@NotEmpty
 	private String documento; //cpf e cnpj
 	@Email
@@ -35,13 +40,15 @@ public class NovaPropostaModel {
 	@NotNull @Positive
 	private BigDecimal salario;
 	@Enumerated(EnumType.STRING)
-	private StatusProposta status = StatusProposta.ANALISE;
+	private Status status = Status.ANALISE;
+
+	private String cartao; 
 	public NovaPropostaModel() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public NovaPropostaModel( @NotEmpty String documento, @Email @NotEmpty String email,
-			@NotEmpty String nome, @NotEmpty String endereco, @NotNull @Positive BigDecimal salario,  StatusProposta status ) {
+			@NotEmpty String nome, @NotEmpty String endereco, @NotNull @Positive BigDecimal salario,  Status status, String cartao ) {
 		super();
 		
 		this.documento = documento;
@@ -50,10 +57,11 @@ public class NovaPropostaModel {
 		this.endereco = endereco;
 		this.salario = salario;
 		this.status = status;
+		this.cartao = cartao;
 	}
 
-	public Long getIdProposta() {
-		return idProposta;
+	public Long getId() {
+		return id;
 	}
 
 	public String getDocumento() {
@@ -78,13 +86,30 @@ public class NovaPropostaModel {
 	
 	
 
-	public StatusProposta getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(StatusProposta status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
+
+	public String getCartao() {
+		return cartao;
+	}
+
+	public void setCartao(String cartao) {
+		this.cartao = cartao;
+	}
+
+	public String getIdProposta() {
+		return idProposta;
+	}
+
+	public void setIdProposta(String idProposta) {
+		this.idProposta = idProposta;
+	}
+	
 	
 	
 }

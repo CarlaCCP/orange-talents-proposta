@@ -1,4 +1,4 @@
-package br.com.orange.carla.proposta.novaProposta;
+package br.com.orange.carla.proposta.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;

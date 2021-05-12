@@ -1,6 +1,6 @@
 package br.com.orange.carla.proposta.novaProposta;
 
-public enum StatusProposta {
+public enum Status {
 
 	NAO_ELEGIVEL,
 	ELEGIVEL,

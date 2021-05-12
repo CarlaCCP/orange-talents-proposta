@@ -18,7 +18,8 @@ public class NovaPropostaResponse {
 
 	private BigDecimal salario;
 	
-	private StatusProposta status = StatusProposta.ANALISE;
+	private Status status = Status.ANALISE;
+	private String cartao; 
 
 	public NovaPropostaResponse(NovaPropostaModel proposta) {
 	
@@ -28,6 +29,8 @@ public class NovaPropostaResponse {
 		this.endereco = proposta.getEndereco();
 		this.salario = proposta.getSalario();
 		this.status = proposta.getStatus();
+		this.cartao = proposta.getCartao();
+		
 	}
 
 	public NovaPropostaResponse() {
@@ -55,13 +58,18 @@ public class NovaPropostaResponse {
 	}
 	
 	
-	public StatusProposta getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(StatusProposta status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
+	
+	public String getCartao() {
+		return cartao;
+	}
+	
 
 	public static List<NovaPropostaResponse> converter (List<NovaPropostaModel> proposta){
 		

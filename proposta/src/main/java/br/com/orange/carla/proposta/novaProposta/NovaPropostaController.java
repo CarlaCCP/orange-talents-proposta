@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,13 +37,6 @@ public class NovaPropostaController {
 	@Autowired
 	private AnaliseProposta analise;
 	
-	@Autowired
-	private CartaoRepository cartaoRepository;
-	
-	@Autowired
-	private PostaCartao postaCartao;
-	
-
 	@PostMapping
 	public ResponseEntity<NovaPropostaResponse> cadastrar(@RequestBody @Valid NovaPropostaRequest request,
 			UriComponentsBuilder uriBuilder) {
@@ -63,20 +57,29 @@ public class NovaPropostaController {
 				}
 				if (novaProposta.getStatus() == null) {
 					novaProposta.setStatus(Status.ELEGIVEL);
-				}
-			
+				}		
 			repository.save(novaProposta);
 			URI uri = uriBuilder.path("/novaProposta/{id}").buildAndExpand(novaProposta.getId()).toUri();
 			return ResponseEntity.created(uri).body(new NovaPropostaResponse(novaProposta));
 		}
 	}
 	
-
 	@GetMapping
 	public List<NovaPropostaResponse> buscaTodos() {
 		List<NovaPropostaModel> proposta = repository.findAll();
 		
 		return NovaPropostaResponse.converter(proposta);
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<NovaPropostaResponse> buscaUm (@PathVariable Long id){
+		Optional<NovaPropostaModel> proposta = repository.findById(id);
+		
+		if(proposta.isPresent()) {
+			return ResponseEntity.ok(new NovaPropostaResponse(proposta.get()));
+		}
+		
+		return ResponseEntity.notFound().build();
 	}
 	
 }

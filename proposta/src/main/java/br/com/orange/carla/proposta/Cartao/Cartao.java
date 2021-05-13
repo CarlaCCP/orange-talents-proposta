@@ -16,20 +16,22 @@ public class Cartao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idCartao;
+	private String numeroCartao;
 	private String emitidoEm;
 	private String titular;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id", referencedColumnName = "id")
-	private NovaPropostaModel proposta;
+	private Long idProposta;
 	
+	public Cartao() {
+		
+	}
 	
-	public Cartao(Long idCartao, String emitidoEm, String titular, NovaPropostaModel proposta) {
+	public Cartao(String numeroCartao,String emitidoEm, String titular, Long idProposta) {
 		super();
-		this.idCartao = idCartao;
+		this.numeroCartao = numeroCartao;
 		this.emitidoEm = emitidoEm;
 		this.titular = titular;
-		this.proposta = proposta;
+		this.idProposta = idProposta;
 	}
 	public Long getId() {
 		return idCartao;
@@ -40,8 +42,37 @@ public class Cartao {
 	public String getTitular() {
 		return titular;
 	}
-	public NovaPropostaModel getProposta() {
-		return proposta;
+	public Long getIdProposta() {
+		return idProposta;
 	}
+
+	public Long getIdCartao() {
+		return idCartao;
+	}
+
+	public void setIdCartao(Long idCartao) {
+		this.idCartao = idCartao;
+	}
+
+	public String getNumeroCartao() {
+		return numeroCartao;
+	}
+
+	public void setNumeroCartao(String numeroCartao) {
+		this.numeroCartao = numeroCartao;
+	}
+
+	public void setEmitidoEm(String emitidoEm) {
+		this.emitidoEm = emitidoEm;
+	}
+
+	public void setTitular(String titular) {
+		this.titular = titular;
+	}
+
+	public void setIdProposta(Long idProposta) {
+		this.idProposta = idProposta;
+	}
+	
 	
 }

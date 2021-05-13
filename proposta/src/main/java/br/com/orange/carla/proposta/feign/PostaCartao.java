@@ -20,5 +20,8 @@ public interface PostaCartao {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/api/cartoes", consumes = "application/json")
 	public CartaoResponse buscaCartao(@RequestParam Long idProposta);
+	
+//	@RequestMapping(method = RequestMethod.GET, value = "/api/cartoes/{numeroCartao}", consumes = "application/json")
+//	public CartaoResponseID persisteCartao(@PathVariable String numeroCartao );
 
 }

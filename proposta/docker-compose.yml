@@ -133,8 +133,33 @@ services:
       VAULT_DEV_ROOT_TOKEN_ID: ee413645-dbe8-4848-afc6-6bb2768ada75
       VAULT_TOKEN: ee413645-dbe8-4848-afc6-6bb2768ada75
       VAULT_ADDR: http://127.0.0.1:8200
-
+  
+  proposta:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    image: proposta
+    container_name: proposta
+    ports:
+      "8080:8080"
+    depends_on:
+      - mysql
+    environment:
+      BD_URL: jdbc:mysql://mysql:3307/banco_proposta?createDatabaseIfNotExist=true&serverTimezone=UTC&useSSl=false
+      DATABASE_USER: root
+      DATABASE_PASSWORD: root
+  
+  mysql:
+    image: 'mysql:5.7'
+    valumes:
+      - volume-mysql:var/lib/mysql
+    ports:
+      - 3307:3307
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_DATABASE: proposta
+  
 volumes:
   grafana-volume:
   prometheus-volume:
   postgres-volume:
+  volume-mysql:

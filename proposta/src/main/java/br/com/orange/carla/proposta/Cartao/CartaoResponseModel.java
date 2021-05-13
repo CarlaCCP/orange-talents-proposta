@@ -1,6 +1,6 @@
 package br.com.orange.carla.proposta.Cartao;
 
-public class CartaoResponse {
+public class CartaoResponseModel {
 
 	
 	private Long id;

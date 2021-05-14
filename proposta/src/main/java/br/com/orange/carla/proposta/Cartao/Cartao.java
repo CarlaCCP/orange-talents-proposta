@@ -1,39 +1,44 @@
 package br.com.orange.carla.proposta.Cartao;
 
-import javax.persistence.CascadeType;
+import java.util.List;
+import java.util.UUID;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
-import br.com.orange.carla.proposta.novaProposta.NovaPropostaModel;
+import br.com.orange.carla.proposta.Biometria.Biometria;
 
 @Entity
 public class Cartao {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idCartao;
-	private String numeroCartao;
+	private Long idCartao; 
+	private String numero;
 	private String emitidoEm;
 	private String titular;
 	
 	private Long idProposta;
 	
+	@OneToMany
+	private List<Biometria> biometria;
+	
 	public Cartao() {
 		
 	}
 	
-	public Cartao(String numeroCartao,String emitidoEm, String titular, Long idProposta) {
+	public Cartao(String numero,String emitidoEm, String titular, Long idProposta ) {
 		super();
-		this.numeroCartao = numeroCartao;
+		this.numero = numero;
 		this.emitidoEm = emitidoEm;
 		this.titular = titular;
 		this.idProposta = idProposta;
+		//this.biometria = biometria;
 	}
-	public Long getId() {
+	public Long getIdCartao() {
 		return idCartao;
 	}
 	public String getEmitidoEm() {
@@ -46,20 +51,12 @@ public class Cartao {
 		return idProposta;
 	}
 
-	public Long getIdCartao() {
-		return idCartao;
+	public String getNumero() {
+		return numero;
 	}
 
-	public void setIdCartao(Long idCartao) {
-		this.idCartao = idCartao;
-	}
-
-	public String getNumeroCartao() {
-		return numeroCartao;
-	}
-
-	public void setNumeroCartao(String numeroCartao) {
-		this.numeroCartao = numeroCartao;
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
 	public void setEmitidoEm(String emitidoEm) {

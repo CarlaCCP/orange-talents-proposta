@@ -36,51 +36,51 @@ public class NovaPropostaController {
 
 	@Autowired
 	private AnaliseProposta analise;
-	
-	@PostMapping
+
+	@PostMapping() //o identificador é passado como path parameter, logica errada
 	public ResponseEntity<NovaPropostaResponse> cadastrar(@RequestBody @Valid NovaPropostaRequest request,
 			UriComponentsBuilder uriBuilder) {
 		NovaPropostaModel novaProposta = request.converter();
 		DetalhesAnaliseRequest retornaAnalise = new DetalhesAnaliseRequest(novaProposta);
 		if (repository.findByDocumento(novaProposta.getDocumento()).isPresent()) {
 			throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Documento já cadastrado");
+			// ou repository.existsByDocumento(request.getDocumento) menos processamento volta boolean
 		} else {
 			// Irá capturar a restrição através da exception
-				try {
-					repository.save(novaProposta);
-					retornaAnalise.setIdProposta(novaProposta.getId().toString());
-					analise.solicitacaoAnalise(retornaAnalise);
-				} catch(FeignException e) {
-					if(e.status() == 422) {
-						novaProposta.setStatus(Status.NAO_ELEGIVEL);
-					}
+			try {
+				repository.save(novaProposta);
+				retornaAnalise.setIdProposta(novaProposta.getId().toString());
+				analise.solicitacaoAnalise(retornaAnalise);
+			} catch (FeignException e) {
+				if (e.status() == 422) {
+					novaProposta.setStatus(Status.NAO_ELEGIVEL);
 				}
-				if (novaProposta.getStatus() == null) {
-					novaProposta.setStatus(Status.ELEGIVEL);
-				}		
+			}
+			if (novaProposta.getStatus() == null) {
+				novaProposta.setStatus(Status.ELEGIVEL);
+			}
 			repository.save(novaProposta);
 			URI uri = uriBuilder.path("/novaProposta/{id}").buildAndExpand(novaProposta.getId()).toUri();
 			return ResponseEntity.created(uri).body(new NovaPropostaResponse(novaProposta));
 		}
 	}
-	
+
 	@GetMapping
 	public List<NovaPropostaResponse> buscaTodos() {
 		List<NovaPropostaModel> proposta = repository.findAll();
-		
+
 		return NovaPropostaResponse.converter(proposta);
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<NovaPropostaResponse> buscaUm (@PathVariable Long id){
+	public ResponseEntity<NovaPropostaResponse> buscaUm(@PathVariable Long id) {
 		Optional<NovaPropostaModel> proposta = repository.findById(id);
-		
-		if(proposta.isPresent()) {
+
+		if (proposta.isPresent()) {
 			return ResponseEntity.ok(new NovaPropostaResponse(proposta.get()));
 		}
-		
+
 		return ResponseEntity.notFound().build();
 	}
-	
-}
 
+}

@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.orange.carla.proposta.novaProposta.NovaPropostaModel;
 
-@FeignClient(name = "postaCartao", url = "http://localhost:8888")
+@FeignClient(name = "postaCartao", url = "http://localhost:8888/api/cartoes")
 public interface PostaCartao {
 
 
 //	@RequestMapping(method = RequestMethod.POST, value = "/api/cartoes")
 //	public void solicitacaoAnalise(CartaoRequestFeign request);
 
-	@RequestMapping(method = RequestMethod.GET, value = "/api/cartoes", consumes = "application/json")
+	@RequestMapping(method = RequestMethod.GET, consumes = "application/json")
 	public CartaoResponse buscaCartao(@RequestParam Long idProposta);
 	
 //	@RequestMapping(method = RequestMethod.GET, value = "/api/cartoes/{numeroCartao}", consumes = "application/json")

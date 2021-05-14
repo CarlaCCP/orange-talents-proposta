@@ -1,6 +1,7 @@
 package br.com.orange.carla.proposta.novaProposta;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -26,7 +27,7 @@ public class NovaPropostaModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String idProposta;
 	@NotEmpty
 	private String documento; //cpf e cnpj
@@ -36,7 +37,7 @@ public class NovaPropostaModel {
 	@NotEmpty
 	private String nome;
 	@NotEmpty
-	private String endereco;
+	private String endereco; //endereçoRequest como objeto e valida os dados com anotação @Embedded @EmBEDABLE
 	@NotNull @Positive
 	private BigDecimal salario;
 	@Enumerated(EnumType.STRING)

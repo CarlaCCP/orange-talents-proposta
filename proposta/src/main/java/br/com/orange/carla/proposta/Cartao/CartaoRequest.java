@@ -6,6 +6,7 @@ public class CartaoRequest {
 	private String emitidoEm;
 	private String titular;
 	private Long idProposta;
+	
 
 	public String getNumeroCartao() {
 		return numeroCartao;

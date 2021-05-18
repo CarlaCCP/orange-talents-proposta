@@ -101,13 +101,19 @@ public class CartaoController {
 		else {
 			Cartao cartao = possivelCartao.get();
 			AvisoViagem avisoViagem = request.converter();
-			postaCartao.solicitaAvisoViagem(numeroCartao, request);
-			avisoViagem.setStatusViagem(StatusViagem.CRIADO);
-			avisoViagem.setUserAgent(userAgent);
-			avisoViagem.setHost(host);
-			viagemRepository.save(avisoViagem);
-			cartao.setAvisoViagem(avisoViagem);
-			repository.save(cartao);
+			try {
+				
+				postaCartao.solicitaAvisoViagem(numeroCartao, request);
+				avisoViagem.setStatusViagem(StatusViagem.CRIADO);
+				avisoViagem.setUserAgent(userAgent);
+				avisoViagem.setHost(host);
+				viagemRepository.save(avisoViagem);
+				cartao.setAvisoViagem(avisoViagem);
+				repository.save(cartao);
+			} catch (FeignException e) {
+				return ResponseEntity.unprocessableEntity().build();
+			}
+			
 		}
 		return ResponseEntity.ok().build();
 	}

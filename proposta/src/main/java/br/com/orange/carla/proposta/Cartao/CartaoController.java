@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -39,7 +41,11 @@ public class CartaoController {
 	private PostaCartao postaCartao;
 	@Autowired
 	private BloqueioRepository bloqueioRepository;
-	// falta gravar as informações, está bloqueando conforme pedido
+	@Autowired
+	private ViagemRepository viagemRepository;
+	
+	
+
 	@PostMapping("/{numeroCartao}")
 	public ResponseEntity<?> bloqueiaCartao(@PathVariable String numeroCartao, 
 			@RequestBody TesteRequest request, 
@@ -79,6 +85,31 @@ public class CartaoController {
 
 		}
 
+	}
+	
+	@PostMapping("/{numeroCartao}/avisos")
+	public ResponseEntity<?> avisaViagem (@PathVariable String numeroCartao, 
+			@RequestBody @Valid AvisoViagemRequest request, 
+			@RequestHeader("user-agent") String userAgent,
+			@RequestHeader("host") String host){
+		
+		Optional<Cartao> possivelCartao = repository.findByNumero(numeroCartao);
+		if(possivelCartao.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		else {
+			Cartao cartao = possivelCartao.get();
+			AvisoViagem avisoViagem = request.converter();
+			postaCartao.solicitaAvisoViagem(numeroCartao, request);
+			avisoViagem.setStatusViagem(StatusViagem.CRIADO);
+			avisoViagem.setUserAgent(userAgent);
+			avisoViagem.setHost(host);
+			viagemRepository.save(avisoViagem);
+			cartao.setAvisoViagem(avisoViagem);
+			repository.save(cartao);
+		}
+		return ResponseEntity.ok().build();
 	}
 
 }

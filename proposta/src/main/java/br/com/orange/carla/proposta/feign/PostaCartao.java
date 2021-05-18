@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.com.orange.carla.proposta.Cartao.AvisoViagemRequest;
 import br.com.orange.carla.proposta.Cartao.Cartao;
 import br.com.orange.carla.proposta.Cartao.CartaoResponseModel;
 import br.com.orange.carla.proposta.novaProposta.NovaPropostaModel;
@@ -30,4 +31,6 @@ public interface PostaCartao {
 	@RequestMapping(method = RequestMethod.POST, value = "/api/cartoes/{numeroCartao}/bloqueios", consumes = "application/json")
 	public Cartao solicitaBloqueio(@PathVariable String numeroCartao, @RequestBody TesteRequest teste);
 
+	@RequestMapping(method = RequestMethod.POST, value = "/api/cartoes/{numeroCartao}/avisos", consumes = "application/json")
+	public Cartao solicitaAvisoViagem(@PathVariable String numeroCartao, @RequestBody AvisoViagemRequest request);
 }

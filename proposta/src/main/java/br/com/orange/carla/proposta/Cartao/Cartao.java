@@ -29,6 +29,9 @@ public class Cartao {
 	@OneToOne
 	private Bloqueio bloqueio;
 	
+	@OneToOne
+	private AvisoViagem avisoViagem;
+	
 	@Enumerated(EnumType.STRING)
 	private CartaoStatus statusCartao; 
 	
@@ -104,6 +107,11 @@ public class Cartao {
 	public void setStatusCartao(CartaoStatus statusCartao) {
 		this.statusCartao = statusCartao;
 	}
+
+	public void setAvisoViagem(AvisoViagem avisoViagem) {
+		this.avisoViagem = avisoViagem;
+	}
+	
 	
 	
 }

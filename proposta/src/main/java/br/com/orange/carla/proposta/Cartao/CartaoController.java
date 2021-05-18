@@ -33,7 +33,7 @@ public class CartaoController {
 	private CartaoRepository repository;
 
 	@Autowired
-	private novaPropostaRepository propostaRepository;
+	private novaPropostaRepository propostaRepository;	
 
 	@Autowired
 	private PostaCartao postaCartao;
@@ -52,17 +52,24 @@ public class CartaoController {
 			return ResponseEntity.notFound().build();
 		} else {
 			Cartao cartao = possivelCartao.get();
+			Bloqueio novoBloqueio = new Bloqueio ();
 			try {
 				postaCartao.solicitaBloqueio(numeroCartao, request);
 				
-				Bloqueio novoBloqueio = new Bloqueio ();
+				
 				novoBloqueio.setUserAgent(userAgent);
 				novoBloqueio.setHost(host);
 				bloqueioRepository.save(novoBloqueio);
 				cartao.setBloqueio(novoBloqueio);
+				cartao.setStatusCartao(CartaoStatus.BLOQUEADO);
 				repository.save(cartao);
 			}catch (FeignException e) {
 				if(e.status() == 422) {
+					cartao.setStatusCartao(CartaoStatus.BLOQUEADO);
+					repository.save(cartao);
+					novoBloqueio.setUserAgent(userAgent);
+					novoBloqueio.setHost(host);
+					bloqueioRepository.save(novoBloqueio);
 					return ResponseEntity.unprocessableEntity().build();
 				}
 			}

@@ -6,6 +6,7 @@ public class CartaoResponse {
 	private String emitidoEm;
 	private String titular;
 	private String idProposta;
+	private BloqueioResponse bloqueio;
 	
 
 	public String getId() {
@@ -27,6 +28,28 @@ public class CartaoResponse {
 	public String getIdProposta() {
 		return idProposta;
 	}
+
+	public BloqueioResponse getBloqueio() {
+		return bloqueio;
+	}
+
+	public void setBloqueio(BloqueioResponse bloqueio) {
+		this.bloqueio = bloqueio;
+	}
+
+	public void setEmitidoEm(String emitidoEm) {
+		this.emitidoEm = emitidoEm;
+	}
+
+	public void setTitular(String titular) {
+		this.titular = titular;
+	}
+
+	public void setIdProposta(String idProposta) {
+		this.idProposta = idProposta;
+	}
+
+	
 	
 	
 }

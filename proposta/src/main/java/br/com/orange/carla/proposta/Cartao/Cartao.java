@@ -3,11 +3,13 @@ package br.com.orange.carla.proposta.Cartao;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import br.com.orange.carla.proposta.Biometria.Biometria;
 
@@ -20,8 +22,12 @@ public class Cartao {
 	private String numero;
 	private String emitidoEm;
 	private String titular;
-	
 	private Long idProposta;
+	
+	@OneToOne
+	private Bloqueio bloqueio;
+	
+	
 	
 	@OneToMany
 	private List<Biometria> biometria;
@@ -69,6 +75,27 @@ public class Cartao {
 
 	public void setIdProposta(Long idProposta) {
 		this.idProposta = idProposta;
+	}
+
+
+	public List<Biometria> getBiometria() {
+		return biometria;
+	}
+
+	public void setBiometria(List<Biometria> biometria) {
+		this.biometria = biometria;
+	}
+
+	public void setIdCartao(Long idCartao) {
+		this.idCartao = idCartao;
+	}
+
+	public Bloqueio getBloqueio() {
+		return bloqueio;
+	}
+
+	public void setBloqueio(Bloqueio bloqueio) {
+		this.bloqueio = bloqueio;
 	}
 	
 	

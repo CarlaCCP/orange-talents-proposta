@@ -32,13 +32,15 @@ public class NovoCartaoListener {
 			NovaPropostaModel proposta = event.getProposta();
 			Cartao cartao = new Cartao(); 
 //			cartao.setProposta(proposta.getId());
-			CartaoResponse buscaCartao = postaCartao.buscaCartao(proposta.getId()); //numero do cartao
+			CartaoResponse buscaCartao = postaCartao.buscaCartao(proposta.getId()); //numero da proposta
 			System.out.println(buscaCartao);
 			proposta.setCartao(buscaCartao.getId());
 			cartao.setNumero(buscaCartao.getId());
 			cartao.setTitular(buscaCartao.getTitular());
 			cartao.setEmitidoEm(buscaCartao.getEmitidoEm());
 			cartao.setIdProposta(proposta.getId());
+			//cartao.getBloqueio().setId(buscaCartao.getBloqueio().getId());
+			//cartao.getBloqueio().setBloqueadoEm(buscaCartao.getBloqueio().getBloqueadoEm());
 			
 			cartaoRepository.save(cartao);
 			repository.save(proposta);

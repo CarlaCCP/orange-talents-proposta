@@ -15,6 +15,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	        http.authorizeRequests(authorizeRequests ->
 	                        authorizeRequests
 	                        		.antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+	                        		.antMatchers(HttpMethod.POST, "/novaProposta").permitAll()
 	                                .antMatchers(HttpMethod.GET, "/api/propostas/**").hasAuthority("SCOPE_propostas:read")
 	                                .antMatchers(HttpMethod.GET, "/api/cartoes/**").hasAuthority("SCOPE_cartoes:read")
 	                                .antMatchers(HttpMethod.POST, "/api/cartoes/**").hasAuthority("SCOPE_cartoes:write")

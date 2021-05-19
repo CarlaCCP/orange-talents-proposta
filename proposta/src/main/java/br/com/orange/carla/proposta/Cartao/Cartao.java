@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import br.com.orange.carla.proposta.Biometria.Biometria;
+import br.com.orange.carla.proposta.Carteira.Carteira;
 
 @Entity
 public class Cartao {
@@ -24,7 +25,8 @@ public class Cartao {
 	private String numero;
 	private String emitidoEm;
 	private String titular;
-	private Long idProposta;
+	
+	private Long idProposta; // fazer o relacionamento com proposta
 	
 	@OneToOne
 	private Bloqueio bloqueio;
@@ -37,6 +39,9 @@ public class Cartao {
 	
 	@OneToMany
 	private List<Biometria> biometria;
+	
+	@OneToOne
+	private Carteira carteira;
 	
 	public Cartao() {
 		
@@ -110,6 +115,10 @@ public class Cartao {
 
 	public void setAvisoViagem(AvisoViagem avisoViagem) {
 		this.avisoViagem = avisoViagem;
+	}
+
+	public void setCarteira(Carteira carteira) {
+		this.carteira = carteira;
 	}
 	
 	

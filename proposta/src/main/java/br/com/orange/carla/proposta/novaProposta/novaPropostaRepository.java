@@ -14,4 +14,8 @@ public interface novaPropostaRepository extends JpaRepository<NovaPropostaModel,
 
 	List<NovaPropostaModel> findNovaPropostaModelByStatusAndCartao(Status elegivel, String cartao);
 
+	
+
+	Boolean existsByEmailAndCartao(String email, String numeroCartao);
+
 }

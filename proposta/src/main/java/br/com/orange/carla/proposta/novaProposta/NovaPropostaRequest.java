@@ -68,6 +68,10 @@ public class NovaPropostaRequest {
 	public String getcartao() {
 		return cartao;
 	}
+
+	public void setDocumento(String documento) {
+		this.documento = documento;
+	}
 	
 	
 }

@@ -110,6 +110,10 @@ public class NovaPropostaModel {
 	public void setIdProposta(String idProposta) {
 		this.idProposta = idProposta;
 	}
+
+	public void setDocumento(String documento) {
+		this.documento = documento;
+	}
 	
 	
 	

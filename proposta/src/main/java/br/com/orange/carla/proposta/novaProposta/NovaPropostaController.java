@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.crypto.encrypt.Encryptors;
+import org.springframework.security.crypto.keygen.KeyGenerators;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +44,13 @@ public class NovaPropostaController {
 			UriComponentsBuilder uriBuilder) {
 		NovaPropostaModel novaProposta = request.converter();
 		DetalhesAnaliseRequest retornaAnalise = new DetalhesAnaliseRequest(novaProposta);
+		
+		
+		String salt = KeyGenerators.string().generateKey();
+		Encryptors.stronger(request.getDocumento(), salt);
+		novaProposta.setDocumento(salt);     
+		
+		
 		if (repository.findByDocumento(novaProposta.getDocumento()).isPresent()) {
 			throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Documento já cadastrado");
 			// ou repository.existsByDocumento(request.getDocumento) menos processamento volta boolean

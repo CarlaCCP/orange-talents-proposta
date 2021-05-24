@@ -18,4 +18,6 @@ public interface novaPropostaRepository extends JpaRepository<NovaPropostaModel,
 
 	Boolean existsByEmailAndCartao(String email, String numeroCartao);
 
+	Boolean existsNovaPropostaModelByEmailAndCartao(String email, String numeroCartao);
+
 }

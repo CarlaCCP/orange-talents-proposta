@@ -15,6 +15,7 @@ import javax.persistence.OneToOne;
 
 import br.com.orange.carla.proposta.Biometria.Biometria;
 import br.com.orange.carla.proposta.Carteira.Carteira;
+import br.com.orange.carla.proposta.Transacao.Transacao;
 
 @Entity
 public class Cartao {
@@ -42,6 +43,7 @@ public class Cartao {
 	
 	@OneToOne
 	private Carteira carteira;
+
 	
 	public Cartao() {
 		
@@ -120,7 +122,7 @@ public class Cartao {
 	public void setCarteira(Carteira carteira) {
 		this.carteira = carteira;
 	}
-	
+
 	
 	
 }

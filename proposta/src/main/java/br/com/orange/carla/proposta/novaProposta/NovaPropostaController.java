@@ -46,9 +46,9 @@ public class NovaPropostaController {
 		DetalhesAnaliseRequest retornaAnalise = new DetalhesAnaliseRequest(novaProposta);
 		
 		
-		String salt = KeyGenerators.string().generateKey();
-		Encryptors.stronger(request.getDocumento(), salt);
-		novaProposta.setDocumento(salt);     
+//		String salt = KeyGenerators.string().generateKey();
+//		Encryptors.stronger(request.getDocumento(), salt);
+//		novaProposta.setDocumento(salt);     
 		
 		
 		if (repository.findByDocumento(novaProposta.getDocumento()).isPresent()) {
